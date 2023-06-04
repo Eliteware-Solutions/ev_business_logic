@@ -33,7 +33,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
 
         if (response is RepoSuccess) {
-          emit(state.copyWith(registerStatus: FormzStatus.submissionSuccess));
+          emit(state.copyWith(
+            registerStatus: FormzStatus.submissionSuccess,
+            userModel: response.data,
+          ));
         } else if (response is RepoFailure) {
           emit(state.copyWith(
             registerStatus: FormzStatus.submissionFailure,
