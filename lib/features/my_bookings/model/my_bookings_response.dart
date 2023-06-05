@@ -1,0 +1,107 @@
+class MyBookingsResponse {
+  bool? success;
+  String? message;
+  List<BookingData>? data;
+
+  MyBookingsResponse({
+    this.success,
+    this.message,
+    this.data,
+  });
+
+  factory MyBookingsResponse.fromJson(Map<String, dynamic> json) =>
+      MyBookingsResponse(
+        success: json['success'],
+        message: json['message'],
+        data: json['data'] == null
+            ? []
+            : List<BookingData>.from(
+                json['data']!.map((x) => BookingData.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'success': success,
+        'message': message,
+        'data': data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
+}
+
+class BookingData {
+  final String? id;
+  final String? bookingStatus;
+  final String? idTag;
+  final String? customer;
+  final String? vehicle;
+  final String? tenant;
+  final String? charger;
+  final int? connector;
+  final DateTime? scheduleDatetime;
+  final String? bookingType;
+  final int? estimatedAmount;
+  final double? estimatedUnits;
+  final double? estimatedTime;
+  final bool? isActive;
+  final int? meterstart;
+  final int? transactionId;
+
+  BookingData({
+    this.id,
+    this.bookingStatus,
+    this.idTag,
+    this.customer,
+    this.vehicle,
+    this.tenant,
+    this.charger,
+    this.connector,
+    this.scheduleDatetime,
+    this.bookingType,
+    this.estimatedAmount,
+    this.estimatedUnits,
+    this.estimatedTime,
+    this.isActive,
+    this.meterstart,
+    this.transactionId,
+  });
+
+  factory BookingData.fromJson(Map<String, dynamic> json) => BookingData(
+        id: json['_id'],
+        bookingStatus: json['booking_status'],
+        idTag: json['idTag'],
+        customer: json['customer'],
+        vehicle: json['vehicle'],
+        tenant: json['tenant'],
+        charger: json['charger'],
+        connector: json['connector'],
+        scheduleDatetime: json['schedule_datetime'] == null
+            ? null
+            : DateTime.parse(json['schedule_datetime']),
+        bookingType: json['booking_type'],
+        estimatedAmount: json['estimated_amount'],
+        estimatedUnits: json['estimated_units']?.toDouble(),
+        estimatedTime: json['estimated_time']?.toDouble(),
+        isActive: json['is_active'],
+        meterstart: json['meterstart'],
+        transactionId: json['transaction_id'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        '_id': id,
+        'booking_status': bookingStatus,
+        'idTag': idTag,
+        'customer': customer,
+        'vehicle': vehicle,
+        'tenant': tenant,
+        'charger': charger,
+        'connector': connector,
+        'schedule_datetime': scheduleDatetime?.toIso8601String(),
+        'booking_type': bookingType,
+        'estimated_amount': estimatedAmount,
+        'estimated_units': estimatedUnits,
+        'estimated_time': estimatedTime,
+        'is_active': isActive,
+        'meterstart': meterstart,
+        'transaction_id': transactionId,
+      };
+}
