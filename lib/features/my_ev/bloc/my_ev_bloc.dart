@@ -6,7 +6,7 @@ import 'package:ev_business_logic/features/my_ev/models/user_model.dart';
 import 'package:ev_business_logic/features/my_ev/repo/my_ev_repo.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
 import 'package:formz/formz.dart';
-
+import 'package:ev_business_logic/resources/shared_pref.dart';
 part 'my_ev_event.dart';
 part 'my_ev_state.dart';
 
@@ -63,6 +63,9 @@ class MyEvBloc extends Bloc<MyEvEvent, MyEvState> {
               myEvStatus: FormzStatus.submissionSuccess,
               markStatus: FormzStatus.submissionFailure,
               error: response.error));
+        }
+        if (state.user != null) {
+          SharedPref.storeDefaultEv(state.user!.defaultEv);
         }
       } catch (e) {
         emit(

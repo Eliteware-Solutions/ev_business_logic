@@ -11,7 +11,7 @@ part 'book_connectors_state.dart';
 
 class BookConnectorsBloc
     extends Bloc<BookConnectorsEvent, BookConnectorsState> {
-    BookConnectorsRepo bookConnectorsRepo;
+    BookConnectorsRepository bookConnectorsRepo;
   BookConnectorsBloc({required this.bookConnectorsRepo}) : super(BookConnectorsState()) {
 
     on<GetConnectors>((event, emit) async {

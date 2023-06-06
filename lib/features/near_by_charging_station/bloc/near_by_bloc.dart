@@ -9,10 +9,10 @@ import 'package:ev_business_logic/services/api_result_service.dart';
 part 'near_by_event.dart';
 
 class NearByBloc extends Bloc<NearByEvent, NearByState> {
-  final NearByChargingStationRepo _nearByChargingStationRepository;
+  final NearByChargingStationRepository _nearByChargingStationRepository;
 
   NearByBloc({
-    required NearByChargingStationRepo nearByChargingStationRepository,
+    required NearByChargingStationRepository nearByChargingStationRepository,
   })  : _nearByChargingStationRepository = nearByChargingStationRepository,
         super(const NearByState()) {
     on<CurrentLocationEvent>((event, emit) {

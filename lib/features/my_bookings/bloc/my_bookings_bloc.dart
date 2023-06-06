@@ -9,10 +9,10 @@ import 'package:formz/formz.dart';
 part 'my_bookings_event.dart';
 
 class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
-  final MyBookingRepo _myBookingsRepository;
+  final MyBookingRepository _myBookingsRepository;
 
   MyBookingsBloc({
-    required MyBookingRepo myBookingsRepository,
+    required MyBookingRepository myBookingsRepository,
   })  : _myBookingsRepository = myBookingsRepository,
         super(const MyBookingsState()) {
     on<GetBookingsAPICallEvent>((event, emit) async {

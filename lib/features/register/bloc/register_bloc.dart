@@ -5,7 +5,6 @@ import 'package:ev_business_logic/features/register/model/register_request_model
 import 'package:ev_business_logic/features/register/repo/register_repo.dart';
 import 'package:formz/formz.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
-
 part 'register_event.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {

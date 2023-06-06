@@ -3,9 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:ev_business_logic/features/login/bloc/login_state.dart';
 import 'package:ev_business_logic/features/login/model/login_request_model.dart';
 import 'package:ev_business_logic/features/login/repo/login_repo.dart';
+import 'package:ev_business_logic/resources/shared_pref.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
+import 'package:ev_business_logic/services/storage_service.dart';
 import 'package:formz/formz.dart';
-
 part 'login_event.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -42,6 +43,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             registerStatus: FormzStatus.submissionFailure,
             error: response.error,
           ));
+        }
+        if (state.userModel != null) {
+          AuthBloc().storeToken(state.userModel!.token!);
+          await SharedPref.saveUserModel(state.userModel!);
+          await SharedPref.storeUserId(state.userModel!.id!);
+          await SharedPref.storeDefaultEv(state.userModel!.defaultEv!);
         }
       } catch (e) {
         emit(state.copyWith(registerStatus: FormzStatus.submissionFailure));

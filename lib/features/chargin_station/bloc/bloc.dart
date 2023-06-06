@@ -10,10 +10,10 @@ part 'event.dart';
 
 class ChargingStationBloc
     extends Bloc<ChargingStationEvent, ChargingStationState> {
-  final NearByChargingStationRepo _nearByChargingStationRepository;
+  final NearByChargingStationRepository _nearByChargingStationRepository;
 
   ChargingStationBloc({
-    required NearByChargingStationRepo nearByChargingStationRepository,
+    required NearByChargingStationRepository nearByChargingStationRepository,
   })  : _nearByChargingStationRepository = nearByChargingStationRepository,
         super(const ChargingStationState()) {
     on<GetChargerLocationsAPI>((event, emit) async {

@@ -9,10 +9,10 @@ import 'package:ev_business_logic/services/api_result_service.dart';
 part 'charging_event.dart';
 
 class ChargingBloc extends Bloc<ChargingEvent, ChargingState> {
-  final ChargingRepo _chargingRepository;
+  final ChargingRepository _chargingRepository;
 
   ChargingBloc({
-    required ChargingRepo chargingRepository,
+    required ChargingRepository chargingRepository,
   })  : _chargingRepository = chargingRepository,
         super(const ChargingState()) {
     on<ChargerId>((event, emit) {
