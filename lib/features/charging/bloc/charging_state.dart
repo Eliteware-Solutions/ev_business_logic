@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:ev_business_logic/features/charging/model/charging_enum.dart';
 import 'package:formz/formz.dart';
 
 class ChargingState extends Equatable {
+  final ChargingEnum chargingEnum;
   final FormzStatus apiCallStatus;
   final FormzStatus stopApiCallStatus;
   final String? chargerId;
@@ -12,6 +13,7 @@ class ChargingState extends Equatable {
   final String? error;
   final String? message;
   const ChargingState({
+    this.chargingEnum = ChargingEnum.pure,
     this.apiCallStatus = FormzStatus.pure,
     this.stopApiCallStatus = FormzStatus.pure,
     this.chargerId,
@@ -21,6 +23,7 @@ class ChargingState extends Equatable {
   });
 
   ChargingState copyWith({
+    ChargingEnum? chargingEnum,
     FormzStatus? apiCallStatus,
     FormzStatus? stopApiCallStatus,
     String? chargerId,
@@ -29,6 +32,7 @@ class ChargingState extends Equatable {
     String? message,
   }) {
     return ChargingState(
+      chargingEnum: chargingEnum ?? this.chargingEnum,
       apiCallStatus: apiCallStatus ?? FormzStatus.pure,
       stopApiCallStatus: stopApiCallStatus ?? FormzStatus.pure,
       chargerId: chargerId ?? this.chargerId,
@@ -41,6 +45,7 @@ class ChargingState extends Equatable {
   @override
   List<Object?> get props {
     return [
+      chargingEnum,
       apiCallStatus,
       stopApiCallStatus,
       chargerId,
