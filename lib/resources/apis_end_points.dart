@@ -13,5 +13,6 @@ class ApisEndPoints {
   static const String charger = 'charger';
   static const String bookingOFConnector = 'booking/no-stripe';
   static const String myBookings = 'booking';
+  static const String cancelBooking = 'booking/cancel';
 
 }

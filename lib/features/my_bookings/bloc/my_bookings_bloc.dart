@@ -39,5 +39,26 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
         ));
       }
     });
+
+    on<CancelBookingAPICallEvent>((event, emit) async {
+      try {
+        emit(state.copyWith(cancelStatus: FormzStatus.submissionInProgress));
+        final response =
+            await _myBookingsRepository.cancelBooking(payload: event.currentId);
+        if (response is RepoSuccess) {
+          emit(state.copyWith(
+            cancelStatus: FormzStatus.submissionSuccess,
+          ));
+        } else {
+          emit(state.copyWith(
+            cancelStatus: FormzStatus.submissionFailure,
+          ));
+        }
+      } catch (e) {
+        emit(state.copyWith(
+          cancelStatus: FormzStatus.submissionFailure,
+        ));
+      }
+    });
   }
 }
