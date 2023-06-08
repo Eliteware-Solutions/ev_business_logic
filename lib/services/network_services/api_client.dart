@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:ev_business_logic/resources/apis_end_points.dart';
+import 'package:ev_business_logic/features/init/init.dart';
 import 'package:ev_business_logic/services/network_services/api_interceptors.dart';
 
 class DioClient {
   late Dio _dio;
+  late String baseUrl;
 
   static final DioClient _dioClient = DioClient._internal();
 
@@ -14,10 +14,11 @@ class DioClient {
   }
 
   DioClient._internal() {
+    baseUrl = Init.getInstance().appBaseUrl!;
     _dio = Dio();
     _dio = Dio(
       BaseOptions(
-        baseUrl: ApisEndPoints.baseUrl,
+        baseUrl: baseUrl,
         validateStatus: (status) {
           // This allows you to receive 400 status codes as a response
           return status! <= 500;
@@ -25,7 +26,7 @@ class DioClient {
       ),
     );
     _dio
-      ..options.baseUrl = ApisEndPoints.baseUrl
+      ..options.baseUrl = baseUrl
       ..httpClientAdapter
       ..options.headers = {'Content-Type': 'application/json; charset=UTF-8'};
 
