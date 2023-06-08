@@ -15,7 +15,8 @@ extension BookingStatusExtension on BookingStatus {
       case BookingStatus.inProgress:
         return 'In Progress';
       case BookingStatus.canceled:
-        return 'Canceled';
+        //TODO: need to change spelling, this is coming from backend
+        return 'Cancled';
     }
   }
 }

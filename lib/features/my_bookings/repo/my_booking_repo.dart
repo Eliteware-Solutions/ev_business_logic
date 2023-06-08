@@ -18,4 +18,18 @@ class MyBookingRepository {
       return RepoFailure(error: _.toString());
     }
   }
+
+  Future<RepoResult> cancelBooking({required payload}) async {
+    try {
+      final response =
+          await commonApiCall(myBookingsService.cancelBooking(payload));
+      if (response is ApiSuccess) {
+        return RepoResult.success(data: response.data);
+      } else {
+        return RepoFailure(error: (response as ApiFailure).error);
+      }
+    } catch (_) {
+      return RepoFailure(error: _.toString());
+    }
+  }
 }
