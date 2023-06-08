@@ -42,13 +42,25 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
 
     on<CancelBookingAPICallEvent>((event, emit) async {
       try {
-        emit(state.copyWith(cancelStatus: FormzStatus.submissionInProgress));
+        emit(state.copyWith(
+            cancelStatus: FormzStatus.submissionInProgress,
+            selectedDeleteId: event.currentId,
+            registerStatus: FormzStatus.submissionSuccess));
         final response =
             await _myBookingsRepository.cancelBooking(payload: event.currentId);
         if (response is RepoSuccess) {
           emit(state.copyWith(
-            cancelStatus: FormzStatus.submissionSuccess,
-          ));
+              cancelStatus: FormzStatus.submissionSuccess,
+              data: state.data!.map((element) {
+                if (element.id == event.currentId) {
+                  Map<String, dynamic> json = element.toJson();
+                  json['booking_status'] = 'Cancled';
+                  BookingData newElement = BookingData.fromJson(json);
+                  return newElement;
+                }
+                return element;
+              }).toList(),
+              registerStatus: FormzStatus.submissionSuccess));
         } else {
           emit(state.copyWith(
             cancelStatus: FormzStatus.submissionFailure,

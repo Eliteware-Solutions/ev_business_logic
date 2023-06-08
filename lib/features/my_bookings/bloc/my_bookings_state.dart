@@ -5,27 +5,30 @@ import 'package:formz/formz.dart';
 class MyBookingsState extends Equatable {
   final FormzStatus registerStatus;
   final FormzStatus cancelStatus;
-
+  final String? selectedDeleteId;
   final List<BookingData>? data;
 
   const MyBookingsState({
     this.registerStatus = FormzStatus.pure,
     this.cancelStatus = FormzStatus.pure,
+    this.selectedDeleteId,
     this.data,
   });
 
   MyBookingsState copyWith({
     FormzStatus? registerStatus,
     FormzStatus? cancelStatus,
+    String? selectedDeleteId,
     List<BookingData>? data,
   }) {
     return MyBookingsState(
       registerStatus: registerStatus ?? FormzStatus.pure,
       cancelStatus: cancelStatus ?? FormzStatus.pure,
+      selectedDeleteId: selectedDeleteId ?? '',
       data: data ?? this.data,
     );
   }
 
   @override
-  List<Object?> get props => [registerStatus,cancelStatus ,data];
+  List<Object?> get props => [registerStatus, cancelStatus, data];
 }

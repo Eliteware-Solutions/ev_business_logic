@@ -37,6 +37,7 @@ class BookingData {
   final String? tenant;
   final String? charger;
   final int? connector;
+  final String? perUnitPrice;
   final DateTime? scheduleDatetime;
   final String? bookingType;
   final int? estimatedAmount;
@@ -55,6 +56,7 @@ class BookingData {
     this.tenant,
     this.charger,
     this.connector,
+    this.perUnitPrice,
     this.scheduleDatetime,
     this.bookingType,
     this.estimatedAmount,
@@ -74,6 +76,7 @@ class BookingData {
         tenant: json['tenant'],
         charger: json['charger'],
         connector: json['connector'],
+        perUnitPrice: json['per_unit_price'],
         scheduleDatetime: json['schedule_datetime'] == null
             ? null
             : DateTime.parse(json['schedule_datetime']),
@@ -95,6 +98,7 @@ class BookingData {
         'tenant': tenant,
         'charger': charger,
         'connector': connector,
+        'per_unit_price':perUnitPrice,
         'schedule_datetime': scheduleDatetime?.toIso8601String(),
         'booking_type': bookingType,
         'estimated_amount': estimatedAmount,
