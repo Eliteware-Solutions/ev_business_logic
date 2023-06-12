@@ -71,6 +71,7 @@ class LoginData {
   final String? token;
   final String? role;
   final String? defaultEv;
+  final String? defaultCard;
 
   const LoginData({
     this.id,
@@ -78,6 +79,7 @@ class LoginData {
     this.token,
     this.role,
     this.defaultEv,
+    this.defaultCard,
   });
 
   LoginData copyWith({
@@ -86,6 +88,7 @@ class LoginData {
     String? email,
     String? token,
     String? defaultEv,
+    String? defaultCard,
   }) {
     return LoginData(
       role: role ?? this.role,
@@ -93,6 +96,7 @@ class LoginData {
       email: email ?? this.email,
       token: token ?? this.token,
       defaultEv: defaultEv ?? this.defaultEv,
+      defaultCard: defaultCard ?? this.defaultCard,
     );
   }
 
@@ -103,6 +107,7 @@ class LoginData {
       'token': token,
       'role': role,
       'default_ev': defaultEv,
+      'default_pay_method': defaultCard,
     };
   }
 
@@ -113,6 +118,7 @@ class LoginData {
       token: map['token'] != null ? map['token'] as String : null,
       role: map['role'] != null ? map['role'] as String : null,
       defaultEv: map['default_ev'] != null ? map['default_ev'] as String : null,
+      defaultCard: map['default_pay_method'] != null ? map['default_pay_method'] as String : null,
     );
   }
 

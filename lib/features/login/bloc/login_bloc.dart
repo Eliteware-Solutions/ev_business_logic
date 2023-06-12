@@ -50,6 +50,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await SharedPref.saveUserModel(state.userModel!);
           await SharedPref.storeUserId(state.userModel!.id!);
           await SharedPref.storeDefaultEv(state.userModel?.defaultEv);
+          await SharedPref.storeDefaultCard(state.userModel?.defaultCard);
         }
       } catch (e) {
         emit(state.copyWith(registerStatus: FormzStatus.submissionFailure));
