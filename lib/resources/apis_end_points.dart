@@ -1,6 +1,7 @@
 class ApisEndPoints {
   static const String baseUrl =
-      'https://9xnitpcah2.execute-api.ap-south-1.amazonaws.com/Prod/';
+      // 'https://9xnitpcah2.execute-api.ap-south-1.amazonaws.com/Prod/';
+      'https://0opxpo6j22.execute-api.ap-south-1.amazonaws.com/Prod/';
   static const String login = 'customer/login';
   static const String signUp = 'customer/register';
   static const String start = '/booking/start';
