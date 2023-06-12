@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:ev_business_logic/features/login/model/login_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,8 +7,20 @@ class SharedPref {
   static const String USER_ID = 'userId';
   static const String DEFAULT_EV = 'default_ev';
 
+  static const String KEY_API_ENDPOINT = 'apiEndpoint';
+
   static Future<SharedPreferences> _getPref() async {
     return await SharedPreferences.getInstance();
+  }
+
+  static Future<void> saveApiBaseUrl(String apiEndpoint) async {
+    SharedPreferences pref = await _getPref();
+    await pref.setString(KEY_API_ENDPOINT, apiEndpoint);
+  }
+
+  static Future<String?> getApiBaseUrl() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    return pref.getString(KEY_API_ENDPOINT);
   }
 
   static Future<void> storeUserId(String userId) async {
