@@ -12,4 +12,6 @@ class ApisEndPoints {
   static const String bookingOFConnector = 'booking/no-stripe';
   static const String myBookings = 'booking';
   static const String cancelBooking = 'booking/cancel';
+  static const String myCards = 'payment-method/';
+  static const String deleteCard = 'payment-method/';
 }
