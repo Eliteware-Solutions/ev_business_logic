@@ -15,7 +15,7 @@ class DioClient {
 
   DioClient._internal() {
     try {
-      baseUrl = Init.getInstance().appBaseUrl!;
+      baseUrl = EVSDKInit.getInstance().appBaseUrl!;
     } catch (e) {
       throw Exception(
           'EV SDK is not initialized. Call Init.initialize() before using DioClient.');
