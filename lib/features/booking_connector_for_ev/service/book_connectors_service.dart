@@ -12,7 +12,7 @@ class BookConnectorsService {
 
   Future<ApiResult> bookApiCAll(payload) async {
     ApiResult apiResult =
-        await DioClient().post(ApisEndPoints.bookingOFConnector, data: payload);
+        await DioClient().post(ApisEndPoints.myBookings, data: payload);
     print(apiResult);
     return apiResult;
   }

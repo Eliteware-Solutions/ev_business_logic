@@ -12,7 +12,7 @@ class GetConnectors extends BookConnectorsEvent {
   const GetConnectors(this.stationId);
   final stationId;
   @override
-  List<Object> get props => [];
+  List<Object> get props => [stationId];
 }
 
 class SelectingConnector extends BookConnectorsEvent {
@@ -24,7 +24,7 @@ class SelectingConnector extends BookConnectorsEvent {
   final String? selectedChargerId;
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [selectedChargerId, selectedConnector];
 }
 
 class BookingApiCall extends BookConnectorsEvent {
@@ -32,13 +32,15 @@ class BookingApiCall extends BookConnectorsEvent {
     required this.customerId,
     required this.dateTime,
     required this.defaultEv,
+    required this.currency,
   });
   final String customerId;
   final String dateTime;
   final String defaultEv;
+  final String currency;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [customerId, dateTime, defaultEv, currency];
 }
 
 class AmountAdded extends BookConnectorsEvent {

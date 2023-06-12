@@ -3,17 +3,17 @@ import 'package:equatable/equatable.dart';
 import 'package:ev_business_logic/features/booking_connector_for_ev/models/booking_request_model.dart';
 import 'package:ev_business_logic/features/booking_connector_for_ev/repo/book_connector_repo.dart';
 import 'package:ev_business_logic/features/near_by_charging_station/model/get_connectors_model.dart';
-import 'package:formz/formz.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
+import 'package:formz/formz.dart';
 
 part 'book_connectors_event.dart';
 part 'book_connectors_state.dart';
 
 class BookConnectorsBloc
     extends Bloc<BookConnectorsEvent, BookConnectorsState> {
-    BookConnectorsRepository bookConnectorsRepo;
-  BookConnectorsBloc({required this.bookConnectorsRepo}) : super(BookConnectorsState()) {
-
+  BookConnectorsRepository bookConnectorsRepo;
+  BookConnectorsBloc({required this.bookConnectorsRepo})
+      : super(BookConnectorsState()) {
     on<GetConnectors>((event, emit) async {
       try {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -61,11 +61,12 @@ class BookConnectorsBloc
             payload: BookingRequestModel(
           scheduleDateTime: event.dateTime,
           charger: state.selectedChargerID,
+          currency: event.currency,
           connector: state.selectedConnector?.connectorId,
           customer: event.customerId,
           estimatedAmount: int.parse(state.estimatedAmount ?? ''),
-          vehicle: event.defaultEv,
         ).toMap());
+
         if (response is RepoSuccess) {
           emit(state.copyWith(submissionStatus: FormzStatus.submissionSuccess));
         } else if (response is RepoFailure) {
@@ -76,8 +77,9 @@ class BookConnectorsBloc
       } catch (e) {
         print(e);
         emit(state.copyWith(
-            submissionStatus: FormzStatus.submissionFailure,
-            error: e.toString()));
+          submissionStatus: FormzStatus.submissionFailure,
+          error: e.toString(),
+        ));
       }
     });
 
