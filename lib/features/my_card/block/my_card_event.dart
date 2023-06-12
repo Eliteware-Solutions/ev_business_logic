@@ -14,11 +14,21 @@ class InitiateMyCardEvent extends MyCardEvent {
   @override
   List<Object?> get props => [customerID];
 }
+
 class DeleteCustomerCard extends MyCardEvent {
   final String? paymentId;
-  const DeleteCustomerCard(
-    {this.paymentId,}
-  );
+  const DeleteCustomerCard({
+    this.paymentId,
+  });
+  @override
+  List<Object?> get props => [paymentId];
+}
+
+class MarkAsDefault extends MyCardEvent {
+  final String? paymentId;
+  const MarkAsDefault({
+    this.paymentId,
+  });
   @override
   List<Object?> get props => [paymentId];
 }

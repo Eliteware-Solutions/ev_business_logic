@@ -14,4 +14,10 @@ class MyCardService {
         await DioClient().delete("${ApisEndPoints.deleteCard}$payload");
     return apiResult;
   }
+
+  Future<ApiResult> markAsDefaultCard(payload) async {
+    ApiResult apiResult =
+        await DioClient().patch("${ApisEndPoints.markAsDefaultCard}$payload");
+    return apiResult;
+  }
 }

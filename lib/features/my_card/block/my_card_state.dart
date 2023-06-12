@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:ev_business_logic/features/my_card/models/card_response.dart';
+import 'package:ev_business_logic/features/my_ev/models/user_model.dart';
 import 'package:formz/formz.dart';
 
 class MyCardState extends Equatable {
@@ -7,6 +8,8 @@ class MyCardState extends Equatable {
   final FormzStatus myCardStatus;
   final FormzStatus deleteStatus;
   final FormzStatus markStatus;
+
+  final User? user;
   final String? msg;
   final String? error;
 
@@ -15,6 +18,7 @@ class MyCardState extends Equatable {
     this.myCardStatus = FormzStatus.pure,
     this.deleteStatus = FormzStatus.pure,
     this.markStatus = FormzStatus.pure,
+    this.user,
     this.msg,
     this.error,
   });
@@ -24,6 +28,7 @@ class MyCardState extends Equatable {
     FormzStatus? myCardStatus,
     FormzStatus? deleteStatus,
     FormzStatus? markStatus,
+    User? user,
     String? selectedForDelete,
     String? msg,
     String? error,
@@ -35,6 +40,7 @@ class MyCardState extends Equatable {
       markStatus: markStatus ?? this.markStatus,
       msg: msg ?? this.msg,
       error: error ?? this.error,
+      user: user ?? this.user,
     );
   }
 
@@ -47,6 +53,7 @@ class MyCardState extends Equatable {
       markStatus,
       msg,
       error,
+      user
     ];
   }
 }

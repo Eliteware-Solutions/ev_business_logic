@@ -13,6 +13,7 @@ class User {
   final String? updatedAt;
   final int? v;
   final String? defaultEv;
+  final String? defaultPayMethod;
 
   User({
     this.id,
@@ -29,6 +30,7 @@ class User {
     this.updatedAt,
     this.v,
     this.defaultEv,
+    this.defaultPayMethod,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -52,6 +54,7 @@ class User {
         updatedAt: json['updatedAt'],
         v: json['__v'],
         defaultEv: json['default_ev'],
+        defaultPayMethod: json['default_pay_method'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -74,5 +77,6 @@ class User {
         'updatedAt': updatedAt,
         '__v': v,
         'default_ev': defaultEv,
+        'default_pay_method': defaultPayMethod,
       };
 }

@@ -8,6 +8,7 @@ class SharedPref {
   static const String DEFAULT_EV = 'default_ev';
 
   static const String KEY_API_ENDPOINT = 'apiEndpoint';
+  static const String DEFAULT_PAY_METHOD = 'default_pay_method';
 
   static Future<SharedPreferences> _getPref() async {
     return await SharedPreferences.getInstance();
@@ -59,5 +60,15 @@ class SharedPref {
   static Future<String?> getDefaultEv() async {
     final pref = await _getPref();
     return pref.getString(DEFAULT_EV);
+  }
+
+  static Future<void> storeDefaultPayMethod(String? paymentId) async {
+    final pref = await _getPref();
+    await pref.setString(DEFAULT_PAY_METHOD, paymentId ?? '');
+  }
+
+  static Future<String?> getDefaultPayMethod() async {
+    final pref = await _getPref();
+    return pref.getString(DEFAULT_PAY_METHOD);
   }
 }

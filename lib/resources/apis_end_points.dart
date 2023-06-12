@@ -14,4 +14,5 @@ class ApisEndPoints {
   static const String cancelBooking = 'booking/cancel';
   static const String myCards = 'payment-method/';
   static const String deleteCard = 'payment-method/';
+  static const String markAsDefaultCard = 'payment-method/set-default/';
 }
