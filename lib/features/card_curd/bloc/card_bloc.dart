@@ -39,6 +39,40 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       }
     });
 
+    on<CreateCard>(
+      (event, emit) async {
+        try {
+          RepoResult result =
+              await _cardPaymentRepository.createCard(event.paymentDetail.toMap());
+
+          if (result is RepoSuccess) {
+            List<PaymentDetail> paymentDetails = state.paymentDetails;
+            paymentDetails.add(event.paymentDetail);
+            emit(
+              state.copyWith(
+                cardStatus: FormzStatus.submissionSuccess,
+                paymentDetails: paymentDetails,
+              ),
+            );
+          } else if (result is RepoFailure) {
+            emit(
+              state.copyWith(
+                cardStatus: FormzStatus.submissionFailure,
+                error: result.error,
+              ),
+            );
+          }
+        } catch (e) {
+          emit(
+            state.copyWith(
+              cardStatus: FormzStatus.submissionFailure,
+              error: e.toString(),
+            ),
+          );
+        }
+      },
+    );
+
     on<CardDeleteEvent>(
       (event, emit) async {
         try {

@@ -49,15 +49,13 @@ class PaymentDetail {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
-    result.addAll({'id': id});
     result.addAll({'customerId': customerId});
     result.addAll({'lastFourDigits': lastFourDigits});
     result.addAll({'expiryMonth': expiryMonth});
     result.addAll({'expiryYear': expiryYear});
     result.addAll({'cardType': cardType});
     result.addAll({'cardToken': cardToken});
-    result.addAll({'paymentMethodId': paymentMethodId});
-    result.addAll({'isActive': isActive});
+    // result.addAll({'isActive': isActive});
 
     return result;
   }

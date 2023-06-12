@@ -10,10 +10,19 @@ class GetAllPaymentDetails extends CardEvent {
   List<Object?> get props => [customerId];
 }
 
+class CreateCard extends CardEvent {
+  final PaymentDetail paymentDetail;
+
+  CreateCard({required this.paymentDetail});
+
+  @override
+  List<Object?> get props => [paymentDetail];
+}
+
 class CardDeleteEvent extends CardEvent {
   final String cardId;
   CardDeleteEvent({required this.cardId});
-  
+
   @override
   List<Object?> get props => [cardId];
 }

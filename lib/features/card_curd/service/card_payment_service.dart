@@ -9,6 +9,12 @@ class CardPaymentService {
     return apiResult;
   }
 
+  Future<ApiResult> createCard(payload) async {
+    ApiResult apiResult =
+        await DioClient().post(ApisEndPoints.createCard, data: payload);
+    return apiResult;
+  }
+
   Future<ApiResult> cartDelete(String cardId) async {
     ApiResult apiResult =
         await DioClient().delete('${ApisEndPoints.getPaymentDetails}$cardId');
@@ -16,8 +22,8 @@ class CardPaymentService {
   }
 
   Future<ApiResult> cartMarkAsDefault(String cardId) async {
-    ApiResult apiResult =
-        await DioClient().patch('${ApisEndPoints.getPaymentDetails}set-default/$cardId');
+    ApiResult apiResult = await DioClient()
+        .patch('${ApisEndPoints.getPaymentDetails}set-default/$cardId');
     return apiResult;
   }
 }

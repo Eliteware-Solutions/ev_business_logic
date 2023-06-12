@@ -24,6 +24,22 @@ class CardPaymentRepository {
     }
   }
 
+  Future<RepoResult> createCard(payload) async {
+    try {
+      ApiResult response =
+          await cardPaymentService.createCard(payload);
+      if (response is ApiSuccess) {
+        var x = RepoResult.success(
+            data: PaymentDetail.fromMap(response.data));
+        return x;
+      } else {
+        return RepoResult.failure(error: (response as ApiFailure).error);
+      }
+    } catch (e) {
+      return RepoResult.failure(error: e.toString());
+    }
+  }
+
   Future<RepoResult> cardDelete(String cardId) async {
     try {
       ApiResult response = await cardPaymentService.cartDelete(cardId);
