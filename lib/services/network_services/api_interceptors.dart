@@ -13,6 +13,10 @@ class ApiInterceptors {
         return handler.next(options);
       },
       onResponse: (response, handler) async {
+        if (response.statusCode == 404) {
+          response.data = const ApiResult.failure(error: 'Process Failed');
+          return handler.next(response);
+        }
         var data = response.data;
         if (response.data.runtimeType == String) {
           data = jsonDecode(data);
