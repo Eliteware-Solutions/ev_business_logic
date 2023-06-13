@@ -1,3 +1,5 @@
+import 'booking_status_enum.dart';
+
 class MyBookingsResponse {
   bool? success;
   String? message;
@@ -30,7 +32,7 @@ class MyBookingsResponse {
 
 class BookingData {
   final String? id;
-  final String? bookingStatus;
+  final BookingStatus? bookingStatus;
   final String? idTag;
   final String? customer;
   final String? vehicle;
@@ -67,38 +69,55 @@ class BookingData {
     this.transactionId,
   });
 
-  factory BookingData.fromJson(Map<String, dynamic> json) => BookingData(
-        id: json['_id'],
-        bookingStatus: json['booking_status'],
-        idTag: json['idTag'],
-        customer: json['customer'],
-        vehicle: json['vehicle'],
-        tenant: json['tenant'],
-        charger: json['charger'],
-        connector: json['connector'],
-        perUnitPrice: json['per_unit_price'],
-        scheduleDatetime: json['schedule_datetime'] == null
-            ? null
-            : DateTime.parse(json['schedule_datetime']),
-        bookingType: json['booking_type'],
-        estimatedAmount: json['estimated_amount'],
-        estimatedUnits: json['estimated_units']?.toDouble(),
-        estimatedTime: json['estimated_time']?.toDouble(),
-        isActive: json['is_active'],
-        meterstart: json['meterstart'],
-        transactionId: json['transaction_id'],
-      );
+  factory BookingData.fromJson(Map<String, dynamic> json) {
+    BookingStatus getEnumData() {
+      switch (json['booking_status']) {
+        case 'All':
+          return BookingStatus.all;
+        case 'Confirmed':
+          return BookingStatus.confirmed;
+        case 'In Progress':
+          return BookingStatus.inProgress;
+        case 'Cancled':
+          return BookingStatus.cancelled;
+        default:
+          return BookingStatus.all;
+      }
+    }
+
+    return BookingData(
+      id: json['_id'],
+      bookingStatus: json['booking_status'] == null ? null : getEnumData(),
+      idTag: json['idTag'],
+      customer: json['customer'],
+      vehicle: json['vehicle'],
+      tenant: json['tenant'],
+      charger: json['charger'],
+      connector: json['connector'],
+      perUnitPrice: json['per_unit_price'],
+      scheduleDatetime: json['schedule_datetime'] == null
+          ? null
+          : DateTime.parse(json['schedule_datetime']),
+      bookingType: json['booking_type'],
+      estimatedAmount: json['estimated_amount'],
+      estimatedUnits: json['estimated_units']?.toDouble(),
+      estimatedTime: json['estimated_time']?.toDouble(),
+      isActive: json['is_active'],
+      meterstart: json['meterstart'],
+      transactionId: json['transaction_id'],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         '_id': id,
-        'booking_status': bookingStatus,
+        'booking_status': bookingStatus?.stringValue,
         'idTag': idTag,
         'customer': customer,
         'vehicle': vehicle,
         'tenant': tenant,
         'charger': charger,
         'connector': connector,
-        'per_unit_price':perUnitPrice,
+        'per_unit_price': perUnitPrice,
         'schedule_datetime': scheduleDatetime?.toIso8601String(),
         'booking_type': bookingType,
         'estimated_amount': estimatedAmount,
