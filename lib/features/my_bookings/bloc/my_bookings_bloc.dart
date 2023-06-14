@@ -22,10 +22,9 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
         //TODO:waiting for the data witch is not getting updated directly
         await Future.delayed(const Duration(seconds: 2));
 
-        
-        final response = await _myBookingsRepository.getMyBookings(payload: {
-          'customerId': event.currentId,
-        });
+        final response = await _myBookingsRepository.getMyBookings(
+          payload: event.currentId,
+        );
         if (response is RepoSuccess) {
           var data = List<BookingData>.from(
               response.data.map((x) => BookingData.fromJson(x)));

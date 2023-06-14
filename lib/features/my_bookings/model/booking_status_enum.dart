@@ -2,7 +2,7 @@ enum BookingStatus {
   all,
   confirmed,
   inProgress,
-  canceled,
+  cancelled,
 }
 
 extension BookingStatusExtension on BookingStatus {
@@ -14,9 +14,8 @@ extension BookingStatusExtension on BookingStatus {
         return 'Confirmed';
       case BookingStatus.inProgress:
         return 'In Progress';
-      case BookingStatus.canceled:
-        //TODO: need to change spelling, this is coming from backend
-        return 'Cancled';
+      case BookingStatus.cancelled:
+        return 'Cancelled';
     }
   }
 }
