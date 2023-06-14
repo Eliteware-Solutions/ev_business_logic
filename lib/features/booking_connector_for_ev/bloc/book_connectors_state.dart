@@ -1,9 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'book_connectors_bloc.dart';
 
 class BookConnectorsState extends Equatable {
-  List<Connectors> connectors;
-  List<ChargersModel> chargers;
+  final List<Connectors> connectors;
+  final List<ChargersModel> chargers;
+  final BookingData? bookingData;
   final String? error;
   final FormzStatus status;
   final FormzStatus submissionStatus;
@@ -15,7 +15,8 @@ class BookConnectorsState extends Equatable {
   final String? estimatedAmount;
   final String? customerId;
 
-  BookConnectorsState({
+  const BookConnectorsState({
+    this.bookingData,
     this.connectors = const [],
     this.chargers = const [],
     this.error,
@@ -27,10 +28,11 @@ class BookConnectorsState extends Equatable {
     this.selectedConnectorId,
     this.estimatedAmount,
     this.customerId,
-    this.selectedDate = null,
+    this.selectedDate,
   });
 
   BookConnectorsState copyWith({
+    BookingData? bookingData,
     List<Connectors>? connectors,
     List<ChargersModel>? chargers,
     String? error,
@@ -45,6 +47,7 @@ class BookConnectorsState extends Equatable {
     DateTime? selectedDate,
   }) {
     return BookConnectorsState(
+        bookingData: bookingData ?? this.bookingData,
         connectors: connectors ?? this.connectors,
         chargers: chargers ?? this.chargers,
         error: error ?? this.error,
@@ -62,6 +65,7 @@ class BookConnectorsState extends Equatable {
   @override
   List<Object?> get props {
     return [
+      bookingData,
       connectors,
       chargers,
       error,

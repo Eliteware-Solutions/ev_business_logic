@@ -1,8 +1,9 @@
-import 'package:ev_business_logic/features/booking_connector_for_ev/models/booking_reponse_model.dart';
 import 'package:ev_business_logic/features/booking_connector_for_ev/service/book_connectors_service.dart';
+import 'package:ev_business_logic/features/my_bookings/model/my_bookings_response.dart';
 import 'package:ev_business_logic/features/near_by_charging_station/model/get_connectors_model.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
 import 'package:ev_business_logic/services/network_services/api_result.dart';
+
 class BookConnectorsRepository {
   BookConnectorsService bookConnectorsService = BookConnectorsService();
   Future<RepoResult> getConnectors({required stationId}) async {
@@ -35,7 +36,7 @@ class BookConnectorsRepository {
           await commonApiCall(bookConnectorsService.bookApiCAll(payload));
 
       if (response is ApiSuccess) {
-        return RepoResult.success(data: BookingResponse.fromMap(response.data));
+        return RepoResult.success(data: BookingData.fromJson(response.data));
       } else {
         return RepoResult.failure(error: (response as ApiFailure).error);
       }

@@ -71,15 +71,17 @@ class BookingData {
 
   factory BookingData.fromJson(Map<String, dynamic> json) {
     BookingStatus getEnumData() {
-      switch (json['booking_status']) {
-        case 'All':
-          return BookingStatus.all;
-        case 'Confirmed':
+      switch (json['booking_status'].toString().toUpperCase()) {
+        case 'CHARGING':
+          return BookingStatus.charging;
+        case 'CONFIRMED':
           return BookingStatus.confirmed;
-        case 'In Progress':
+        case 'IN PROGRESS':
           return BookingStatus.inProgress;
-        case 'Cancled':
+        case 'CANCLED':
           return BookingStatus.cancelled;
+        case 'EXPIRED':
+          return BookingStatus.expired;
         default:
           return BookingStatus.all;
       }

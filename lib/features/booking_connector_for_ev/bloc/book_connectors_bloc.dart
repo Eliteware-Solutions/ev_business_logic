@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ev_business_logic/features/booking_connector_for_ev/models/booking_request_model.dart';
 import 'package:ev_business_logic/features/booking_connector_for_ev/repo/book_connector_repo.dart';
+import 'package:ev_business_logic/features/my_bookings/model/my_bookings_response.dart';
 import 'package:ev_business_logic/features/near_by_charging_station/model/get_connectors_model.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
 import 'package:formz/formz.dart';
@@ -68,7 +69,9 @@ class BookConnectorsBloc
         ).toMap());
 
         if (response is RepoSuccess) {
-          emit(state.copyWith(submissionStatus: FormzStatus.submissionSuccess));
+          emit(state.copyWith(
+              submissionStatus: FormzStatus.submissionSuccess,
+              bookingData: response.data));
         } else if (response is RepoFailure) {
           emit(state.copyWith(
               submissionStatus: FormzStatus.submissionFailure,
