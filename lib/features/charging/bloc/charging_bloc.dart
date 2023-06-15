@@ -22,7 +22,9 @@ class ChargingBloc extends Bloc<ChargingEvent, ChargingState> {
     });
     on<StartChargingAPICallEvent>((event, emit) async {
       try {
-        emit(state.copyWith(apiCallStatus: FormzStatus.submissionInProgress));
+        emit(state.copyWith(
+            apiCallStatus: FormzStatus.submissionInProgress,
+            chargingEnum: ChargingEnum.start));
         await Future.delayed(const Duration(seconds: 3));
         emit(state.copyWith(
             apiCallStatus: FormzStatus.submissionSuccess,
@@ -45,7 +47,9 @@ class ChargingBloc extends Bloc<ChargingEvent, ChargingState> {
 
     on<StopChargingAPICallEvent>((event, emit) async {
       try {
-        emit(state.copyWith(apiCallStatus: FormzStatus.submissionInProgress));
+        emit(state.copyWith(
+            apiCallStatus: FormzStatus.submissionInProgress,
+            chargingEnum: ChargingEnum.finish));
         await Future.delayed(const Duration(seconds: 3));
         emit(state.copyWith(
             apiCallStatus: FormzStatus.submissionSuccess,
