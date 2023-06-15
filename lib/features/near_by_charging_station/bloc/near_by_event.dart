@@ -20,9 +20,4 @@ class CurrentLocationEvent extends NearByEvent {
   List<Object> get props => [lat, lng];
 }
 
-class GetChargerLocationsAPI extends NearByEvent {
-  const GetChargerLocationsAPI();
-  @override
-  List<Object> get props => [];
-}
-
+class GetChargerLocationsAPI extends NearByEvent {}

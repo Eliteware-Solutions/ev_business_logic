@@ -5,6 +5,7 @@ import 'package:ev_business_logic/features/near_by_charging_station/model/get_al
 import 'package:ev_business_logic/features/near_by_charging_station/model/request_model.dart';
 import 'package:ev_business_logic/features/near_by_charging_station/repo/near_by_charging_station_repo.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
+import 'package:formz/formz.dart';
 
 part 'near_by_event.dart';
 
@@ -23,6 +24,8 @@ class NearByBloc extends Bloc<NearByEvent, NearByState> {
     });
     on<GetChargerLocationsAPI>((event, emit) async {
       try {
+        emit(state.copyWith(
+            chargerLocationStatus: FormzStatus.submissionInProgress));
         RepoResult response =
             await _nearByChargingStationRepository.getNearByLocation(
           payload: NearByLocationRequestModel(
@@ -37,14 +40,18 @@ class NearByBloc extends Bloc<NearByEvent, NearByState> {
         if (response is RepoSuccess) {
           var data =
               List<Datum>.from(response.data.map((x) => Datum.fromJson(x)));
-          emit(state.copyWith(response: data));
+          emit(state.copyWith(
+              response: data,
+              chargerLocationStatus: FormzStatus.submissionSuccess));
         } else if (response is RepoFailure) {
-          emit(state.copyWith(error: response.error.toString()));
+          emit(state.copyWith(
+              error: response.error.toString(),
+              chargerLocationStatus: FormzStatus.submissionFailure));
         }
-      } catch (e, s) {
-        print(e);
-        print(s);
-        emit(state.copyWith(error: e.toString()));
+      } catch (e) {
+        emit(state.copyWith(
+            error: e.toString(),
+            chargerLocationStatus: FormzStatus.submissionFailure));
       }
     });
   }
