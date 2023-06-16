@@ -10,7 +10,7 @@ class ApiHeaders {
 
     Map<String, dynamic> headers = {
       'Content-Type': 'application/json',
-      'access_token': token,
+      'Access_token': token,
     };
 
     return headers;
