@@ -14,9 +14,11 @@ class BookConnectorsState extends Equatable {
   final String? selectedConnectorId;
   final String? estimatedAmount;
   final String? customerId;
+  final bool isFavorite;
 
   const BookConnectorsState({
     this.bookingData,
+    this.isFavorite = false,
     this.connectors = const [],
     this.chargers = const [],
     this.error,
@@ -33,6 +35,7 @@ class BookConnectorsState extends Equatable {
 
   BookConnectorsState copyWith({
     BookingData? bookingData,
+    bool? isFavorite,
     List<Connectors>? connectors,
     List<ChargersModel>? chargers,
     String? error,
@@ -48,6 +51,7 @@ class BookConnectorsState extends Equatable {
   }) {
     return BookConnectorsState(
         bookingData: bookingData ?? this.bookingData,
+        isFavorite: isFavorite ?? this.isFavorite,
         connectors: connectors ?? this.connectors,
         chargers: chargers ?? this.chargers,
         error: error ?? this.error,
@@ -67,6 +71,7 @@ class BookConnectorsState extends Equatable {
     return [
       bookingData,
       connectors,
+      isFavorite,
       chargers,
       error,
       status,

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 GetAllChargerLocationResponse getAllChargerLocationResponseFromJson(
@@ -211,6 +212,11 @@ class Datum {
         'charger_counts': chargerCounts?.toJson(),
         'connector_counts': connectorCounts?.toJson(),
       };
+
+  @override
+  String toString() {
+    return 'Datum(id: $id, tenant: $tenant, contactPerson: $contactPerson, name: $name, chargers: $chargers, totalChargers: $totalChargers, chargersInUse: $chargersInUse, averageChargingTime: $averageChargingTime, accessType: $accessType, address: $address, energyConsumed: $energyConsumed, avgRating: $avgRating, ratingCount: $ratingCount, timingType: $timingType, photos: $photos, availableToUsers: $availableToUsers, description: $description, tags: $tags, showOnMobileApp: $showOnMobileApp, isActive: $isActive, stationStatus: $stationStatus, chargerCounts: $chargerCounts, connectorCounts: $connectorCounts)';
+  }
 }
 
 class Address {
