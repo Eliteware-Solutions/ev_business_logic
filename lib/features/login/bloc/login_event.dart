@@ -25,6 +25,8 @@ class PasswordEvent extends LoginEvent {
   List<Object> get props => [password];
 }
 
+class Logout extends LoginEvent {}
+
 class LoginAPICallEvent extends LoginEvent {
   const LoginAPICallEvent();
   @override

@@ -7,6 +7,7 @@ import 'package:ev_business_logic/resources/shared_pref.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
 import 'package:ev_business_logic/services/storage_service.dart';
 import 'package:formz/formz.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'login_event.dart';
 
@@ -55,6 +56,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } catch (e) {
         emit(state.copyWith(registerStatus: FormzStatus.submissionFailure));
       }
+    });
+
+    on<Logout>((event, emit) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.remove(SharedPref.USER_ID);
+      prefs.remove(SharedPref.USER_DATA);
     });
   }
 }

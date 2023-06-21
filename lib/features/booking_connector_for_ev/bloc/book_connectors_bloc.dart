@@ -3,7 +3,9 @@ import 'package:equatable/equatable.dart';
 import 'package:ev_business_logic/features/booking_connector_for_ev/models/booking_request_model.dart';
 import 'package:ev_business_logic/features/booking_connector_for_ev/repo/book_connector_repo.dart';
 import 'package:ev_business_logic/features/my_bookings/model/my_bookings_response.dart';
+import 'package:ev_business_logic/features/near_by_charging_station/model/get_all_charger_location_response.dart';
 import 'package:ev_business_logic/features/near_by_charging_station/model/get_connectors_model.dart';
+import 'package:ev_business_logic/resources/shared_pref.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
 import 'package:formz/formz.dart';
 
@@ -102,6 +104,13 @@ class BookConnectorsBloc
 
     on<SetDate>((event, emit) {
       emit(state.copyWith(selectedDate: event.date));
+    });
+
+    on<AddFavoriteStation>((event, emit) {
+      SharedPref.saveFavoriteStations(event.station);
+    });
+    on<SetFavoriteStation>((event, emit) {
+      emit(state.copyWith(isFavorite: !state.isFavorite));
     });
   }
 }

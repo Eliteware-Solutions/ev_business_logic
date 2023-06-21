@@ -61,3 +61,15 @@ class SetDate extends BookConnectorsEvent {
   @override
   List<Object?> get props => [date];
 }
+
+class AddFavoriteStation extends BookConnectorsEvent {
+  final Datum station;
+  const AddFavoriteStation({
+    required this.station,
+  });
+
+  @override
+  List<Object?> get props => [station];
+}
+
+class SetFavoriteStation extends BookConnectorsEvent {}
