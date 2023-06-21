@@ -13,7 +13,7 @@ class GetAllPaymentDetails extends CardEvent {
 class CardDeleteEvent extends CardEvent {
   final String cardId;
   CardDeleteEvent({required this.cardId});
-  
+
   @override
   List<Object?> get props => [cardId];
 }
@@ -24,4 +24,12 @@ class CardMarkAsDefaultEvent extends CardEvent {
 
   @override
   List<Object?> get props => [cardId];
+}
+
+class AddCard extends CardEvent {
+  final PaymentDetail cardDetails;
+  AddCard({required this.cardDetails});
+
+  @override
+  List<Object?> get props => [cardDetails];
 }
