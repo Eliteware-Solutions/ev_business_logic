@@ -37,6 +37,21 @@ class CardPaymentRepository {
     }
   }
 
+  Future<RepoResult> addCard(PaymentDetail paymentDetail) async {
+    try {
+      ApiResult response = await cardPaymentService.addCard(paymentDetail);
+      if (response is ApiSuccess) {
+        return RepoResult.success(
+            data: PaymentDetail.fromMap(response.data),
+            message: response.message);
+      } else {
+        return RepoResult.failure(error: (response as ApiFailure).error);
+      }
+    } catch (e) {
+      return RepoResult.failure(error: e.toString());
+    }
+  }
+
   Future<RepoResult> cardMarkAsDefault(String cardId) async {
     try {
       ApiResult response = await cardPaymentService.cartMarkAsDefault(cardId);

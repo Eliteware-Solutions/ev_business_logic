@@ -24,8 +24,9 @@ class CardBloc extends Bloc<CardEvent, CardState> {
           List<PaymentDetail> paymentDetails =
               List<PaymentDetail>.from(result.data);
           emit(state.copyWith(
-              cardStatus: FormzStatus.submissionSuccess,
-              paymentDetails: paymentDetails));
+            cardStatus: FormzStatus.submissionSuccess,
+            paymentDetails: paymentDetails,
+          ));
         } else if (result is RepoFailure) {
           emit(
             state.copyWith(
@@ -39,6 +40,30 @@ class CardBloc extends Bloc<CardEvent, CardState> {
       }
     });
 
+    on<AddCard>((event, emit) async {
+      try {
+        emit(state.copyWith(addCardStatus: FormzStatus.submissionInProgress));
+
+        List<PaymentDetail> oldList = List.from(state.paymentDetails);
+        RepoResult result =
+            await _cardPaymentRepository.addCard(event.cardDetails);
+
+        if (result is RepoSuccess) {
+          oldList.add(result.data);
+          emit(state.copyWith(
+            addCardStatus: FormzStatus.submissionSuccess,
+            addedCard: result.data,
+            paymentDetails: oldList,
+          ));
+        } else if (result is RepoFailure) {
+          emit(state.copyWith(
+            addCardStatus: FormzStatus.submissionFailure,
+          ));
+        }
+      } catch (_) {
+        emit(state.copyWith(addCardStatus: FormzStatus.submissionFailure));
+      }
+    });
     on<CardDeleteEvent>(
       (event, emit) async {
         try {
