@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ev_business_logic/features/charging/bloc/charging_state.dart';
-import 'package:ev_business_logic/features/charging/model/charging_enum.dart';
 import 'package:ev_business_logic/features/charging/model/charging_response_model.dart';
 import 'package:ev_business_logic/features/charging/repo/charging_repo.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
@@ -19,58 +18,54 @@ class ChargingBloc extends Bloc<ChargingEvent, ChargingState> {
     on<ChargerId>((event, emit) {
       emit(state.copyWith(chargerId: event.chargerId));
     });
+
     on<ConnectorId>((event, emit) {
       emit(state.copyWith(connectorId: event.connectorId));
     });
+
     on<StartChargingAPICallEvent>((event, emit) async {
       try {
         emit(state.copyWith(
-            apiCallStatus: FormzStatus.submissionInProgress,
-            chargingEnum: ChargingEnum.start));
-        // await Future.delayed(const Duration(seconds: 3));
-        emit(state.copyWith(
-            apiCallStatus: FormzStatus.submissionSuccess,
-            chargingEnum: ChargingEnum.start));
+          startApiStatus: FormzStatus.submissionInProgress,
+        ));
         RepoResult? response =
             await _chargingRepository.startCharging(bookingId: event.bookingId);
         if (response is RepoSuccess) {
           emit(state.copyWith(
-              apiCallStatus: FormzStatus.submissionSuccess,
-              chargingEnum: ChargingEnum.start));
+            startApiStatus: FormzStatus.submissionSuccess,
+          ));
         } else if (response is RepoFailure) {
           emit(state.copyWith(
-              apiCallStatus: FormzStatus.submissionFailure,
+              startApiStatus: FormzStatus.submissionFailure,
               error: response.error));
         }
       } catch (e) {
-        emit(state.copyWith(apiCallStatus: FormzStatus.submissionFailure));
+        emit(state.copyWith(
+            startApiStatus: FormzStatus.submissionFailure,
+            error: e.toString()));
       }
     });
 
     on<StopChargingAPICallEvent>((event, emit) async {
       try {
         emit(state.copyWith(
-            apiCallStatus: FormzStatus.submissionInProgress,
-            chargingEnum: ChargingEnum.finish));
-        // await Future.delayed(const Duration(seconds: 3));
-        emit(state.copyWith(
-            apiCallStatus: FormzStatus.submissionSuccess,
-            chargingEnum: ChargingEnum.finish));
+          stopApiStatus: FormzStatus.submissionInProgress,
+        ));
         RepoResult? response =
             await _chargingRepository.stopCharging(bookingId: event.bookingId);
         if (response is RepoSuccess) {
           ChargingResponseModel data = response.data;
           emit(state.copyWith(
-              stopApiCallStatus: FormzStatus.submissionSuccess,
-              chargingEnum: ChargingEnum.finish,
+              stopApiStatus: FormzStatus.submissionSuccess,
               message: data.message));
         } else if (response is RepoFailure) {
           emit(state.copyWith(
-              stopApiCallStatus: FormzStatus.submissionFailure,
+              stopApiStatus: FormzStatus.submissionFailure,
               error: response.error));
         }
       } catch (e) {
-        emit(state.copyWith(stopApiCallStatus: FormzStatus.submissionFailure));
+        emit(state.copyWith(
+            stopApiStatus: FormzStatus.submissionFailure, error: e.toString()));
       }
     });
   }
