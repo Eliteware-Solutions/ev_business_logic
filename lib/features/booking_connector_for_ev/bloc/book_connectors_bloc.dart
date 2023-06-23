@@ -16,7 +16,7 @@ class BookConnectorsBloc
     extends Bloc<BookConnectorsEvent, BookConnectorsState> {
   BookConnectorsRepository bookConnectorsRepo;
   BookConnectorsBloc({required this.bookConnectorsRepo})
-      : super(BookConnectorsState()) {
+      : super(const BookConnectorsState()) {
     on<GetConnectors>((event, emit) async {
       try {
         emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -28,20 +28,14 @@ class BookConnectorsBloc
 
           List<ChargersModel> listOfChargers = response.data;
 
-          if (listOfChargers.isNotEmpty) {
-            print(listOfChargers.length);
-            for (int i = 0; i < listOfChargers.length; i++) {
-              listOfConnectors.addAll(listOfChargers[i].connectors ?? []);
-            }
-            emit(state.copyWith(
-                chargers: listOfChargers,
-                connectors: listOfConnectors,
-                status: FormzStatus.submissionSuccess));
-          } else {
-            emit(state.copyWith(
-                error: 'Somthing went wroung',
-                status: FormzStatus.submissionFailure));
+          print(listOfChargers.length);
+          for (int i = 0; i < listOfChargers.length; i++) {
+            listOfConnectors.addAll(listOfChargers[i].connectors ?? []);
           }
+          emit(state.copyWith(
+              chargers: listOfChargers,
+              connectors: listOfConnectors,
+              status: FormzStatus.submissionSuccess));
         } else if (response is RepoFailure) {
           emit(state.copyWith(
               error: response.error.toString(),
