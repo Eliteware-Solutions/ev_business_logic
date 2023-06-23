@@ -49,18 +49,20 @@ class ChargingBloc extends Bloc<ChargingEvent, ChargingState> {
     on<StopChargingAPICallEvent>((event, emit) async {
       try {
         emit(state.copyWith(
-          stopApiStatus: FormzStatus.submissionInProgress,
-        ));
+            stopApiStatus: FormzStatus.submissionInProgress,
+            startApiStatus: FormzStatus.submissionSuccess));
         RepoResult? response =
             await _chargingRepository.stopCharging(bookingId: event.bookingId);
         if (response is RepoSuccess) {
           ChargingResponseModel data = response.data;
           emit(state.copyWith(
               stopApiStatus: FormzStatus.submissionSuccess,
+              startApiStatus: FormzStatus.submissionSuccess,
               message: data.message));
         } else if (response is RepoFailure) {
           emit(state.copyWith(
               stopApiStatus: FormzStatus.submissionFailure,
+              startApiStatus: FormzStatus.submissionSuccess,
               error: response.error));
         }
       } catch (e) {
