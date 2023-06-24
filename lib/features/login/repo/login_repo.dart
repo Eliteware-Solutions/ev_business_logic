@@ -1,16 +1,10 @@
 import 'dart:async';
 
+import 'package:ev_business_logic/features/authentication/repository/authentication_repository.dart';
 import 'package:ev_business_logic/features/login/model/login_response_model.dart';
 import 'package:ev_business_logic/features/login/service/login_service.dart';
 import 'package:ev_business_logic/services/api_result_service.dart';
 import 'package:ev_business_logic/services/network_services/api_result.dart';
-
-enum AuthenticationStatus {
-  unknown,
-  authenticated,
-  unauthenticated,
-  deactivated,
-}
 
 class LoginRepository {
   final controller = StreamController<AuthenticationStatus>();
