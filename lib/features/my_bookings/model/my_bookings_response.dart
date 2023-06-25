@@ -36,6 +36,7 @@ class BookingData {
   final String? idTag;
   final String? customer;
   final String? vehicle;
+  final String? stationName;
   final String? tenant;
   final String? charger;
   final int? connector;
@@ -44,6 +45,7 @@ class BookingData {
   final String? bookingType;
   final int? estimatedAmount;
   final double? estimatedUnits;
+  final double? tariffPrice;
   final double? estimatedTime;
   final bool? isActive;
   final int? meterstart;
@@ -61,6 +63,8 @@ class BookingData {
     this.perUnitPrice,
     this.scheduleDatetime,
     this.bookingType,
+    this.tariffPrice,
+    this.stationName,
     this.estimatedAmount,
     this.estimatedUnits,
     this.estimatedTime,
@@ -93,6 +97,8 @@ class BookingData {
       idTag: json['idTag'],
       customer: json['customer'],
       vehicle: json['vehicle'],
+      tariffPrice: json['tariff_price'],
+      stationName: json['station_name'],
       tenant: json['tenant'],
       charger: json['charger'],
       connector: json['connector'],
@@ -115,6 +121,8 @@ class BookingData {
         'booking_status': bookingStatus?.stringValue,
         'idTag': idTag,
         'customer': customer,
+        'station_name': stationName,
+        'tariff_price': tariffPrice,
         'vehicle': vehicle,
         'tenant': tenant,
         'charger': charger,
