@@ -98,4 +98,9 @@ class SharedPref {
     final pref = await _getPref();
     return pref.getString(DEFAULT_CARD);
   }
+
+  static Future<void> removeDefaultEv() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.remove(DEFAULT_EV);
+  }
 }
