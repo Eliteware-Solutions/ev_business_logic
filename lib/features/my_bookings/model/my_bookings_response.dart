@@ -86,6 +86,10 @@ class BookingData {
           return BookingStatus.cancelled;
         case 'EXPIRED':
           return BookingStatus.expired;
+        case 'PROCESSING PAYMENT':
+          return BookingStatus.processingPayment;
+        case 'COMPLETED':
+          return BookingStatus.completed;
         default:
           return BookingStatus.all;
       }

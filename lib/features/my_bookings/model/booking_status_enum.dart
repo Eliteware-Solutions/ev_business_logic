@@ -5,6 +5,8 @@ enum BookingStatus {
   cancelled,
   expired,
   charging,
+  processingPayment,
+  completed
 }
 
 extension BookingStatusExtension on BookingStatus {
@@ -22,6 +24,10 @@ extension BookingStatusExtension on BookingStatus {
         return 'Expired';
       case BookingStatus.charging:
         return 'Charging';
+      case BookingStatus.processingPayment:
+        return 'Processing payment';
+      case BookingStatus.completed:
+        return 'Completed';
     }
   }
 }
