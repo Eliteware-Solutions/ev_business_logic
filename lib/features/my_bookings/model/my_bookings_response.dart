@@ -32,6 +32,7 @@ class MyBookingsResponse {
 
 class BookingData {
   final String? id;
+  final double? amount;
   final BookingStatus? bookingStatus;
   final String? idTag;
   final String? customer;
@@ -49,10 +50,12 @@ class BookingData {
   final double? estimatedTime;
   final bool? isActive;
   final int? meterstart;
+  final int? meterstop;
   final int? transactionId;
 
   BookingData({
     this.id,
+    this.amount,
     this.bookingStatus,
     this.idTag,
     this.customer,
@@ -70,6 +73,7 @@ class BookingData {
     this.estimatedTime,
     this.isActive,
     this.meterstart,
+    this.meterstop,
     this.transactionId,
   });
 
@@ -86,6 +90,10 @@ class BookingData {
           return BookingStatus.cancelled;
         case 'EXPIRED':
           return BookingStatus.expired;
+        case 'PROCESSING PAYMENT':
+          return BookingStatus.processingPayment;
+        case 'COMPLETED':
+          return BookingStatus.completed;
         default:
           return BookingStatus.all;
       }
@@ -93,6 +101,7 @@ class BookingData {
 
     return BookingData(
       id: json['_id'],
+      amount: json['amount'],
       bookingStatus: json['booking_status'] == null ? null : getEnumData(),
       idTag: json['idTag'],
       customer: json['customer'],
@@ -112,12 +121,14 @@ class BookingData {
       estimatedTime: json['estimated_time']?.toDouble(),
       isActive: json['is_active'],
       meterstart: json['meterstart'],
+      meterstop: json['meterstop'],
       transactionId: json['transaction_id'],
     );
   }
 
   Map<String, dynamic> toJson() => {
         '_id': id,
+        'amount': amount,
         'booking_status': bookingStatus?.stringValue,
         'idTag': idTag,
         'customer': customer,
@@ -135,6 +146,7 @@ class BookingData {
         'estimated_time': estimatedTime,
         'is_active': isActive,
         'meterstart': meterstart,
+        'meterstop': meterstop,
         'transaction_id': transactionId,
       };
 }
