@@ -46,6 +46,13 @@ class ChargingBloc extends Bloc<ChargingEvent, ChargingState> {
       }
     });
 
+    on<InProgressCharger>((event, emit) {
+      emit(state.copyWith(
+        stopApiStatus: FormzStatus.pure,
+        startApiStatus: FormzStatus.submissionSuccess,
+      ));
+    });
+
     on<StopChargingAPICallEvent>((event, emit) async {
       try {
         emit(state.copyWith(

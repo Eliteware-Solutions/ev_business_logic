@@ -25,6 +25,8 @@ class ConnectorId extends ChargingEvent {
   List<Object> get props => [connectorId];
 }
 
+class InProgressCharger extends ChargingEvent {}
+
 class StartChargingAPICallEvent extends ChargingEvent {
   final String bookingId;
 
