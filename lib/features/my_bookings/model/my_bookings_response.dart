@@ -32,6 +32,8 @@ class MyBookingsResponse {
 
 class BookingData {
   final String? id;
+  final String? chargingStart; //charging_start
+  final String? chargingStop; //charging_stop
   final double? amount;
   final BookingStatus? bookingStatus;
   final String? idTag;
@@ -75,6 +77,8 @@ class BookingData {
     this.meterstart,
     this.meterstop,
     this.transactionId,
+    this.chargingStart,
+    this.chargingStop,
   });
 
   factory BookingData.fromJson(Map<String, dynamic> json) {
@@ -123,6 +127,8 @@ class BookingData {
       meterstart: json['meterstart'],
       meterstop: json['meterstop'],
       transactionId: json['transaction_id'],
+      chargingStart: json['charging_start'],
+      chargingStop: json['charging_stop'],
     );
   }
 
@@ -148,5 +154,7 @@ class BookingData {
         'meterstart': meterstart,
         'meterstop': meterstop,
         'transaction_id': transactionId,
+        'charging_start': chargingStart,
+        'charging_stop': chargingStop,
       };
 }
