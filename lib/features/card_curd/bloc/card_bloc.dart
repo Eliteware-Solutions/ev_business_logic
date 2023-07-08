@@ -58,12 +58,17 @@ class CardBloc extends Bloc<CardEvent, CardState> {
         } else if (result is RepoFailure) {
           emit(state.copyWith(
             addCardStatus: FormzStatus.submissionFailure,
+            error: result.error,
           ));
         }
       } catch (_) {
-        emit(state.copyWith(addCardStatus: FormzStatus.submissionFailure));
+        emit(state.copyWith(
+          addCardStatus: FormzStatus.submissionFailure,
+          error: _.toString(),
+        ));
       }
     });
+
     on<CardDeleteEvent>(
       (event, emit) async {
         try {
