@@ -15,3 +15,5 @@ class CancelBookingAPICallEvent extends MyBookingsEvent {
   final String? currentId;
   const CancelBookingAPICallEvent({required this.currentId});
 }
+
+class ClearBookingState extends MyBookingsEvent {}

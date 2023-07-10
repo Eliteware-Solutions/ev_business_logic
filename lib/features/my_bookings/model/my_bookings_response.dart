@@ -32,8 +32,8 @@ class MyBookingsResponse {
 
 class BookingData {
   final String? id;
-  final String? chargingStart; //charging_start
-  final String? chargingStop; //charging_stop
+  final String? chargingStart;
+  final String? chargingStop;
   final double? amount;
   final BookingStatus? bookingStatus;
   final String? idTag;
