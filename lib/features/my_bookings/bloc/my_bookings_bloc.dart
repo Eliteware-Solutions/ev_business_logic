@@ -76,5 +76,12 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
         ));
       }
     });
+
+    on<ClearBookingState>((event, emit) {
+      emit(state.copyWith(
+        data: null,
+        
+      ));
+    });
   }
 }
