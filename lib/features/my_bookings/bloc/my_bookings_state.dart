@@ -20,12 +20,13 @@ class MyBookingsState extends Equatable {
     FormzStatus? cancelStatus,
     String? selectedDeleteId,
     List<BookingData>? data,
+    bool setDataNull = false,
   }) {
     return MyBookingsState(
       registerStatus: registerStatus ?? FormzStatus.pure,
       cancelStatus: cancelStatus ?? FormzStatus.pure,
       selectedDeleteId: selectedDeleteId ?? '',
-      data: data ?? this.data,
+      data: setDataNull ? null : data ?? this.data,
     );
   }
 
