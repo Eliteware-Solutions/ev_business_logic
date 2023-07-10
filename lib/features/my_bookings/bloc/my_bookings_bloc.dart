@@ -78,10 +78,7 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
     });
 
     on<ClearBookingState>((event, emit) {
-      emit(state.copyWith(
-        data: null,
-        
-      ));
+      emit(state.copyWith(data: null, setDataNull: true));
     });
   }
 }
