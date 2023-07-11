@@ -55,7 +55,6 @@ class BookingRequestModel extends Equatable {
     if (estimatedAmount != null) {
       map['estimated_amount'] = estimatedAmount;
     }
-
     if (connector != null) {
       map['connector'] = connector;
     }

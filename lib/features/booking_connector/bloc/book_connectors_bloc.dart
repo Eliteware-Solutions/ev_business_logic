@@ -58,7 +58,9 @@ class BookConnectorsBloc
           currency: event.currency,
           connector: state.selectedConnector?.connectorId,
           customer: event.customerId,
-          estimatedAmount: int.parse(state.estimatedAmount ?? '0'),
+          estimatedAmount: state.estimatedAmount != null
+              ? int.parse(state.estimatedAmount ?? '')
+              : null,
         ).toMap());
 
         if (response is RepoSuccess) {
@@ -70,12 +72,10 @@ class BookConnectorsBloc
               submissionStatus: FormzStatus.submissionFailure,
               error: response.error));
         }
-      } catch (e, s) {
-        print(e);
-        print(s);
+      } catch (e) {
         emit(state.copyWith(
           submissionStatus: FormzStatus.submissionFailure,
-          error: s.toString(),
+          error: e.toString(),
         ));
       }
     });
