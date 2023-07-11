@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ev_business_logic/features/booking_connector_for_ev/models/booking_request_model.dart';
-import 'package:ev_business_logic/features/booking_connector_for_ev/repo/book_connector_repo.dart';
+import 'package:ev_business_logic/features/booking_connector/models/booking_request_model.dart';
+import 'package:ev_business_logic/features/booking_connector/repo/book_connector_repo.dart';
 import 'package:ev_business_logic/features/my_bookings/model/my_bookings_response.dart';
 import 'package:ev_business_logic/features/near_by_charging_station/model/get_all_charger_location_response.dart';
 import 'package:ev_business_logic/features/near_by_charging_station/model/get_connectors_model.dart';
@@ -28,7 +28,6 @@ class BookConnectorsBloc
 
           List<ChargersModel> listOfChargers = response.data;
 
-          print(listOfChargers.length);
           for (int i = 0; i < listOfChargers.length; i++) {
             listOfConnectors.addAll(listOfChargers[i].connectors ?? []);
           }
@@ -41,9 +40,7 @@ class BookConnectorsBloc
               error: response.error.toString(),
               status: FormzStatus.submissionFailure));
         }
-      } catch (e, s) {
-        print(e);
-        print(s);
+      } catch (e) {
         emit(state.copyWith(
             error: e.toString(), status: FormzStatus.submissionFailure));
       }
@@ -61,7 +58,7 @@ class BookConnectorsBloc
           currency: event.currency,
           connector: state.selectedConnector?.connectorId,
           customer: event.customerId,
-          estimatedAmount: int.parse(state.estimatedAmount ?? ''),
+          estimatedAmount: int.parse(state.estimatedAmount ?? '0'),
         ).toMap());
 
         if (response is RepoSuccess) {
@@ -73,11 +70,12 @@ class BookConnectorsBloc
               submissionStatus: FormzStatus.submissionFailure,
               error: response.error));
         }
-      } catch (e) {
+      } catch (e, s) {
         print(e);
+        print(s);
         emit(state.copyWith(
           submissionStatus: FormzStatus.submissionFailure,
-          error: e.toString(),
+          error: s.toString(),
         ));
       }
     });
