@@ -18,8 +18,6 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
     on<GetBookingsAPICallEvent>((event, emit) async {
       try {
         emit(state.copyWith(registerStatus: FormzStatus.submissionInProgress));
-
-        //TODO:waiting for the data witch is not getting updated directly
         await Future.delayed(const Duration(seconds: 2));
 
         final response = await _myBookingsRepository.getMyBookings(
@@ -79,6 +77,11 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
 
     on<ClearBookingState>((event, emit) {
       emit(state.copyWith(data: null, setDataNull: true));
+    });
+
+    on<StartDirectCharge>((event, emit) {
+      emit(state.copyWith(
+          startCharging: true, currentBooking: event.currentBooking));
     });
   }
 }
