@@ -24,7 +24,11 @@ class ClearBookingState extends MyBookingsEvent {}
 
 class StartDirectCharge extends MyBookingsEvent {
   final BookingData? currentBooking;
-  const StartDirectCharge({required this.currentBooking});
+  final bool? isStart;
+  const StartDirectCharge({
+    required this.currentBooking,
+    required this.isStart,
+  });
   @override
-  List<Object?> get props => [currentBooking];
+  List<Object?> get props => [currentBooking, isStart];
 }

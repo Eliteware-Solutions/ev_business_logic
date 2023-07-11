@@ -81,7 +81,7 @@ class MyBookingsBloc extends Bloc<MyBookingsEvent, MyBookingsState> {
 
     on<StartDirectCharge>((event, emit) {
       emit(state.copyWith(
-          startCharging: true, currentBooking: event.currentBooking));
+          startCharging: event.isStart, currentBooking: event.currentBooking));
     });
   }
 }
