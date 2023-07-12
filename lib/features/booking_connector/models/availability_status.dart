@@ -1,7 +1,12 @@
-
 import 'package:flutter/material.dart';
 
-enum AvailabilityStatus { charging, available, unAvailable, preparing }
+enum AvailabilityStatus {
+  charging,
+  available,
+  unAvailable,
+  preparing,
+  finishing
+}
 
 extension AvailabilityStatusExtension on AvailabilityStatus {
   Color get color {
@@ -14,6 +19,8 @@ extension AvailabilityStatusExtension on AvailabilityStatus {
         return Colors.red;
       case AvailabilityStatus.preparing:
         return Colors.white;
+      case AvailabilityStatus.finishing:
+        return Colors.grey;
     }
   }
 }
@@ -29,6 +36,8 @@ extension AvailabilityExtension on AvailabilityStatus {
         return 'Unavailable';
       case AvailabilityStatus.preparing:
         return 'Preparing';
+      case AvailabilityStatus.finishing:
+        return 'Finishing';
     }
   }
 }
