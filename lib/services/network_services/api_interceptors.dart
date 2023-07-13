@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:ev_business_logic/features/init/init.dart';
 import 'package:ev_business_logic/services/network_services/api_headers.dart';
 import 'package:ev_business_logic/services/network_services/api_result.dart';
 
@@ -13,6 +14,9 @@ class ApiInterceptors {
         return handler.next(options);
       },
       onResponse: (response, handler) async {
+
+        EVSDKInit.onSessionExpired?.call();
+
         if (response.statusCode == 404) {
           response.data = const ApiResult.failure(error: 'Process Failed');
           return handler.next(response);
@@ -45,19 +49,8 @@ class ApiInterceptors {
   }
 
   handleSessionTimeout(Response response) async {
-    if (response.statusCode == 401) {
-      // Fluttertoast.showToast(
-      //   msg: 'Session expired',
-      //   toastLength: Toast.LENGTH_SHORT,
-      //   gravity: ToastGravity.CENTER,
-      //   backgroundColor: Colors.red,
-      //   textColor: Colors.white,
-      //   fontSize: 16.0,
-      // );
-      // remove the stored user since token has expired and user cannot tap to login if the token is expired'
-      //! TODO:
-      // await AuthBloc().removeCurrentUserStoredInLoggedInUsers();
-      // AuthenticationRepository().logOut();
+    if (response.statusCode == 400 && response.data['message'] == 'jwt expired ') {
+      EVSDKInit.onSessionExpired?.call();
     }
   }
 

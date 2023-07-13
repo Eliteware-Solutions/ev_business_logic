@@ -3,6 +3,7 @@ import 'package:ev_business_logic/resources/shared_pref.dart';
 class EVSDKInit {
   static EVSDKInit? _instance;
   String? appBaseUrl;
+  static Function? onSessionExpired;
 
   EVSDKInit._();
 
@@ -11,6 +12,10 @@ class EVSDKInit {
       throw Exception('EV SDK is not initialized.');
     }
     return _instance!;
+  }
+
+  static void sessionExpired(Function sessionExpired) {
+    onSessionExpired = () => sessionExpired();
   }
 
   static void initialize(String baseUrl) async {
