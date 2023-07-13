@@ -3,6 +3,7 @@ import 'package:ev_business_logic/resources/shared_pref.dart';
 class EVSDKInit {
   static EVSDKInit? _instance;
   String? appBaseUrl;
+  String? tenantId;
   static Function? onSessionExpired;
 
   EVSDKInit._();
@@ -22,5 +23,10 @@ class EVSDKInit {
     _instance ??= EVSDKInit._();
     _instance!.appBaseUrl = baseUrl;
     await SharedPref.saveApiBaseUrl(baseUrl);
+  }
+
+  static void getTenantId(String tenantId) async {
+    _instance ??= EVSDKInit._();
+    _instance!.tenantId = tenantId;
   }
 }
