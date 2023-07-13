@@ -38,14 +38,28 @@ class BookingRequestModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'schedule_datetime': scheduleDateTime,
-      'customer': customer,
-      'charger': charger,
-      'currency': currency,
-      'estimated_amount': estimatedAmount,
-      'connector': connector,
-    };
+    Map<String, dynamic> map = {};
+
+    if (scheduleDateTime != null) {
+      map['schedule_datetime'] = scheduleDateTime;
+    }
+    if (customer != null) {
+      map['customer'] = customer;
+    }
+    if (charger != null) {
+      map['charger'] = charger;
+    }
+    if (currency != null) {
+      map['currency'] = currency;
+    }
+    if (estimatedAmount != null) {
+      map['estimated_amount'] = estimatedAmount;
+    }
+    if (connector != null) {
+      map['connector'] = connector;
+    }
+
+    return map;
   }
 
   factory BookingRequestModel.fromMap(Map<String, dynamic> map) {
