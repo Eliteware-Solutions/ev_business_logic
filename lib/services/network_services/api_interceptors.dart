@@ -14,9 +14,6 @@ class ApiInterceptors {
         return handler.next(options);
       },
       onResponse: (response, handler) async {
-
-        EVSDKInit.onSessionExpired?.call();
-
         if (response.statusCode == 404) {
           response.data = const ApiResult.failure(error: 'Process Failed');
           return handler.next(response);
@@ -49,7 +46,8 @@ class ApiInterceptors {
   }
 
   handleSessionTimeout(Response response) async {
-    if (response.statusCode == 400 && response.data['message'] == 'jwt expired ') {
+    if (response.statusCode == 400 &&
+        response.data['message'] == 'jwt expired ') {
       EVSDKInit.onSessionExpired?.call();
     }
   }
