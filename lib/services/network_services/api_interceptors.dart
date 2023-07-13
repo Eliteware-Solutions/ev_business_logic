@@ -10,6 +10,7 @@ class ApiInterceptors {
     return InterceptorsWrapper(
       onRequest: (options, handler) async {
         Map<String, dynamic> headers = await ApiHeaders.getHeaders();
+        headers.addAll(options.headers);
         options.headers = headers;
         return handler.next(options);
       },
